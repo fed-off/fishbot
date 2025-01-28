@@ -97,9 +97,9 @@ if __name__ == "__main__":
             
             # Проверяем, если разница в координатах y больше 50
             if cy is not None and last_y is not None and abs(last_y - cy) > 50:
-              print("Поплавок утерян!")
-              running = False  # Останавливаем программу
-              break  # Выход из внутреннего цикла
+                print("Поплавок утерян!")
+                running = False  # Останавливаем программу
+                break  # Выход из внутреннего цикла
 
             # Проверяем, если cy не равно None
             if cy is not None and last_y is not None and abs(last_y - cy) > 7:
@@ -132,7 +132,7 @@ if __name__ == "__main__":
             break  # Завершаем выполнение программы
 
         # Таймаут перед забросом
-        timeout = random.uniform(1, 2)
+        timeout = random.uniform(0.7, 2)
         print(f"Жду {timeout} секунд перед забросом...")
         time.sleep(timeout)
 
