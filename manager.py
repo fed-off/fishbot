@@ -1,11 +1,8 @@
 import keyboard
 import threading
-import time
 
-import actions
 from fishing import fishing
 import config
-
 
 is_running = False # Флаг для управления запуском программы
 fishing_thread = None  # Глобальная переменная для потока
@@ -14,9 +11,11 @@ fishing_thread = None  # Глобальная переменная для пот
 def toggle_running():
     global is_running
     is_running = not is_running
-    print(f"Рыбалка {'запущена' if is_running else 'остановлена'}")
 
-keyboard.add_hotkey(config.BUTTON_TOGGLE_RUNNING, toggle_running)
+    if is_running:
+        start_fishing()
+    else:
+        stop_fishing()
 
 
 
@@ -34,3 +33,8 @@ def stop_fishing():
     """Останавливает процесс рыбалки"""
     global is_running
     is_running = False  # Останавливаем рыбалку
+
+
+keyboard.add_hotkey(config.BUTTON_TOGGLE_RUNNING, toggle_running)
+for key in config.BUTTONS_STOP_FISHING:
+    keyboard.add_hotkey(key, stop_fishing)
