@@ -27,11 +27,15 @@ def is_biting():
     delta_position = [(left_delta_x, left_delta_y), (right_delta_x, right_delta_y)]
 
     # Выводим отладочную информацию
-    # print(f"Левая {delta_position[0][0], delta_position[0][1]}\nПравая{delta_position[1][0], delta_position[1][1]}\n---")
+    print(f"Левая {delta_position[0][0], delta_position[0][1]}\nПравая{delta_position[1][0], delta_position[1][1]}\n---")
 
     # Обновляем предыдущие координаты перед следующим циклом
     prev_position = current_position
 
     # Условие для определения поклёвки
-    return ((left_delta_x > config.THRESHOLD or right_delta_x > config.THRESHOLD) 
-        or (left_delta_y > config.THRESHOLD or right_delta_y > config.THRESHOLD))
+    if ((left_delta_x > config.THRESHOLD or right_delta_x > config.THRESHOLD) 
+        or (left_delta_y > config.THRESHOLD or right_delta_y > config.THRESHOLD)):
+        prev_position = None
+        return True
+    
+
