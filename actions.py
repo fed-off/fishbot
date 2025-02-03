@@ -21,7 +21,7 @@ def press_key(key):
 
 def ranom_delay(time_start, time_end):
     delay = random.uniform(time_start, time_end)
-    print(f"Жду {round(delay, 2)} секунд")
+    # print(f"Жду {round(delay, 2)} секунд")
     time.sleep(delay)
 
 
