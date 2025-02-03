@@ -35,7 +35,7 @@ def is_biting():
     # print(f"Левая {delta_position[0][0], delta_position[0][1]}\nПравая{delta_position[1][0], delta_position[1][1]}\n---")
 
     distance = get_distance(current_position[0], prev_position[0])
-    print(distance)
+    # print(distance)
     # Обновляем предыдущие координаты перед следующим циклом
     prev_position = current_position
 
