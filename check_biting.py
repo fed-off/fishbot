@@ -10,7 +10,7 @@ def get_distance(point1, point2):
 
 def is_biting():
     global prev_position  # Используем глобальную переменную для хранения последних координат
-    # delta_position = None                 Устарело
+    delta_position = None
     # Получаем текущие координаты поплавка
     current_position = find_bobber.get_coordinates()
 
@@ -24,10 +24,10 @@ def is_biting():
         prev_position = current_position
         return False
 
-    # left_delta_x = abs(current_position[0][0] - prev_position[0][0])
-    # left_delta_y = abs(current_position[0][1] - prev_position[0][1])
-    # right_delta_x = abs(current_position[1][0] - prev_position[1][0])
-    # right_delta_y = abs(current_position[1][1] - prev_position[1][1])
+    left_delta_x = abs(current_position[0][0] - prev_position[0][0])
+    left_delta_y = abs(current_position[0][1] - prev_position[0][1])
+    right_delta_x = abs(current_position[1][0] - prev_position[1][0])
+    right_delta_y = abs(current_position[1][1] - prev_position[1][1])
 
     # delta_position = [(left_delta_x, left_delta_y), (right_delta_x, right_delta_y)]
 
@@ -40,7 +40,8 @@ def is_biting():
     prev_position = current_position
 
     # Условие для определения поклёвки
-    # return ((left_delta_x > config.THRESHOLD_POINTS or right_delta_x > config.THRESHOLD_POINTS) 
-    #     or (left_delta_y > config.THRESHOLD_POINTS or right_delta_y > config.THRESHOLD_POINTS))
+    return ((left_delta_x > config.THRESHOLD_POINTS or right_delta_x > config.THRESHOLD_POINTS) 
+        or (left_delta_y > config.THRESHOLD_POINTS or right_delta_y > config.THRESHOLD_POINTS)
+        or distance > config.THRESHOLD_DISTANCE)
 
     return distance > config.THRESHOLD_DISTANCE

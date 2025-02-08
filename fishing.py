@@ -7,6 +7,7 @@ import actions
 def fishing():
     fish_count = 0
     fish_lost = 0
+    count = 0
     start_time = time.time()
     
     print('Рыбалка началась')
@@ -14,8 +15,10 @@ def fishing():
     while manager.is_running:
         print('\t')
         actions.cast_fishing_rod()
+        count += 1
         if actions.wait_biting():
             actions.hook()
+            print(f'Подсечек: {count}')
             fish_count += 1
         else:
             fish_lost += 1
