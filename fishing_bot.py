@@ -1,22 +1,45 @@
-from keyboard import Keyboard
+from keyboard_controller import KeyboardController
 from bobber import Bobber
 from utils import random_delay, debug
+import keyboard
 import config
 import time
 import random
 
 class FishingBot:
   def __init__(self):
-    self.keyboard = Keyboard()
+    self.keyboard_controller = KeyboardController()
     self.fish_count = 0
     self.fish_lost = 0
     self.count = 0
     self.start_time = time.time()
+    self.running = False
 
-  def start(self):
-    print('Рыбалка началась')
+
+  def run(self):
+    self._setup_hotkeys()
     while True:
-      self._fish()
+      if self.running:
+        self._fish()
+      else:
+        time.sleep(1)
+
+  def _setup_hotkeys(self):
+    keyboard.add_hotkey(config.BUTTON_TOGGLE_RUNNING, self._toggle_running)
+    keyboard.add_hotkey('esc', self._exit)
+    for key in config.BUTTONS_STOP_FISHING:
+      keyboard.add_hotkey(key, self._exit)
+  
+  def _toggle_running(self):
+    self.running = not self.running
+    if self.running:
+      print('Рыбалка началась')
+    else:
+      print('Рыбалка остановлена')
+
+  def _exit(self):
+    print('Рыбалка завершена')
+    exit()
 
   def _fish(self):
     self.count += 1
@@ -32,7 +55,7 @@ class FishingBot:
   def _cast_fishing_rod(self):
     random_delay(config.DELAY_CAST_FISHING_ROD[0], config.DELAY_CAST_FISHING_ROD[1])
     debug("Забрасываю удочку")
-    self.keyboard.press_key(config.BUTTON_CAST_FISHING_ROD)
+    self.keyboard_controller.press_key(config.BUTTON_CAST_FISHING_ROD)
     time.sleep(config.DELAY_BEFORE_CHECKING)
     return Bobber()
 
@@ -52,7 +75,7 @@ class FishingBot:
   def _hook(self):
     random_delay(config.DELAY_HOOK[0], config.DELAY_HOOK[1])
     debug('Подсекаю')
-    self.keyboard.press_key(config.BUTTON_HOOK)
+    self.keyboard_controller.press_key(config.BUTTON_HOOK)
 
 
   def _print_stats(self):
