@@ -1,8 +1,9 @@
 from keyboard import Keyboard
 from bobber import Bobber
-from utils import random_delay
+from utils import random_delay, debug
 import config
 import time
+import random
 
 class FishingBot:
   def __init__(self):
@@ -30,28 +31,27 @@ class FishingBot:
 
   def _cast_fishing_rod(self):
     random_delay(config.DELAY_CAST_FISHING_ROD[0], config.DELAY_CAST_FISHING_ROD[1])
-    print("Забрасываю удочку")
+    debug("Забрасываю удочку")
     self.keyboard.press_key(config.BUTTON_CAST_FISHING_ROD)
+    time.sleep(config.DELAY_BEFORE_CHECKING)
     return Bobber()
 
   def _wait_biting(self, bobber):
     start_time = time.time()
-    time.sleep(config.DELAY_BEFORE_CHECKING)
-    print('Слежу за поплавком')
-
+    debug('Слежу за поплавком')
+    time_threshold = random.uniform(config.WAIT_BITING_LIMIT - config.DELAY_BEFORE_CHECKING - 1, config.WAIT_BITING_LIMIT)
     while True:
       if bobber.is_biting():
-        print('Поклевка')
+        debug('Поклевка')
         return True
-      time_threshold = random_delay(config.WAIT_BITING_LIMIT - config.DELAY_BEFORE_CHECKING - 1, config.WAIT_BITING_LIMIT)
       if time.time() - start_time > time_threshold:
-        print('Время ожидания поклевки истекло')
+        debug('Время ожидания поклевки истекло')
         return False
       time.sleep(config.CHECK_DELAY)
 
   def _hook(self):
     random_delay(config.DELAY_HOOK[0], config.DELAY_HOOK[1])
-    print('Подсекаю')
+    debug('Подсекаю')
     self.keyboard.press_key(config.BUTTON_HOOK)
 
 
@@ -66,4 +66,4 @@ class FishingBot:
       f"{self.fish_count}",
       f"{self.fish_lost}"
     ]
-    print('\t|\t'.join(columns))
+    print('|\t' + '\t|\t'.join(columns) + '\t|')

@@ -1,6 +1,7 @@
 import pyautogui
 import numpy as np
 import config
+import cv2
 
 
 class Bobber:
@@ -40,7 +41,7 @@ class Bobber:
   def _get_coordinates(self):
     screenshot = self._make_screenshot()
     bobber_contour = self._find_bobber_contour(screenshot)
-    if bobber_contour:
+    if bobber_contour is not None:
       leftmost = self._get_leftmost_point(bobber_contour)
       center = self._get_central_point(bobber_contour)
       if config.DEBUG:
@@ -58,12 +59,12 @@ class Bobber:
     height = int(screen_height * config.SCREENSHOT_HEIGHT)           # высота скриншота
 
     # Делаем скриншот выбранной области
-    return pyautogui.screenshot(region=(left, top, width, height))
+    screenshot = pyautogui.screenshot(region=(left, top, width, height))
+    return np.array(screenshot)
 
   def _find_bobber_contour(self, screenshot):
     # Преобразуем в HSV для удобной работы с цветами
-    screenshot_rgb = np.array(screenshot)
-    screenshot_hsv = cv2.cvtColor(screenshot_rgb, cv2.COLOR_RGB2HSV)
+    screenshot_hsv = cv2.cvtColor(screenshot, cv2.COLOR_RGB2HSV)
     # Определяем диапазоны для цветов поплавка
     lower_bound = np.array(config.LOWER_BOUND)    # нижняя граница
     upper_bound = np.array(config.UPPER_BOUND)    # верхняя граница
