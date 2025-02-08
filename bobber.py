@@ -44,7 +44,7 @@ class Bobber:
     if bobber_contour is not None:
       leftmost = self._get_leftmost_point(bobber_contour)
       center = self._get_central_point(bobber_contour)
-      if config.DEBUG:
+      if config.DEBUG_SCREENSHOTS:
         self._draw_points(screenshot, [leftmost, center])
       return [leftmost, center]
   

@@ -1,4 +1,4 @@
-from keyboard import Keyboard
+from keyboard_manager import Keyboard
 from bobber import Bobber
 from utils import random_delay, debug
 import config
@@ -13,11 +13,14 @@ class FishingBot:
     self.count = 0
     self.start_time = time.time()
     self.running = False
+    self.terminating = False
 
 
   def run(self):
     self._setup_hotkeys()
     while True:
+      if self.terminating:
+        break
       if self.running:
         self._fish()
       else:
@@ -38,7 +41,7 @@ class FishingBot:
 
   def _exit(self):
     print('Рыбалка завершена')
-    exit()
+    self.terminating = True
 
   def _fish(self):
     self.count += 1

@@ -13,5 +13,5 @@ class Keyboard:
     random_delay(0.05, 0.1)
     self.controller.release(key)
 
-  def add_hotkey(key, callback):
+  def add_hotkey(self, key, callback):
     keyboard.add_hotkey(key, callback)

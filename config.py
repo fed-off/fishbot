@@ -2,6 +2,7 @@ from pynput.keyboard import Key
 
 # Режим отладки
 DEBUG = False
+DEBUG_SCREENSHOTS = False
 
 # Размеры области скриншота и обрезки
 SCREENSHOT = 'screenshot.png'   # имя файла скриншота
