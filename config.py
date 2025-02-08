@@ -1,5 +1,8 @@
 from pynput.keyboard import Key
 
+# Режим отладки
+DEBUG = False
+
 # Размеры области скриншота и обрезки
 SCREENSHOT = 'screenshot.png'   # имя файла скриншота
 TOP_START_POINT = 0.15          # отступ сверху (от высоты экрана)
