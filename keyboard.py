@@ -3,7 +3,7 @@ from pynput.keyboard import Controller, Key
 from utils import random_delay
 
 
-class KeyboardController:
+class Keyboard:
   def __init__(self):
     self.controller = Controller()
   
@@ -12,3 +12,6 @@ class KeyboardController:
     self.controller.press(key)
     random_delay(0.05, 0.1)
     self.controller.release(key)
+
+  def add_hotkey(key, callback):
+    keyboard.add_hotkey(key, callback)
